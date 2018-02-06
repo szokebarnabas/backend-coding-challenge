@@ -1,0 +1,16 @@
+endpoints:
+  health:
+    path: /ping
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost/test
+    url: jdbc:postgresql://localhost/test
+    username: postgres
+    password: root
+    hikari:
+      idle-timeout: 10000
+  jpa:
+    generate-ddl: true
