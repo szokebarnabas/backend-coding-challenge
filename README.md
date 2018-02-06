@@ -129,7 +129,8 @@ Start frontend:
 npm install -g gulp && npm install && gulp
 ```
 
-###Endpoints
+Endpoints
+--------------
 
 Save expense:
 ```
