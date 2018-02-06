@@ -17,7 +17,7 @@ public class ExpenseAssembler {
         return new Expense(
                 request.getId(),
                 request.getVat(),
-                new BigDecimal(request.getAmount()),
+                request.getAmount(),
                 request.getDate(),
                 request.getReason()
         );
@@ -26,7 +26,7 @@ public class ExpenseAssembler {
     public ExpenseDto toDto(final Expense expense) {
         requireNonNull(expense, "The expense cannot be null.");
         return ExpenseDto.builder()
-                .amount(expense.getAmount().toString())
+                .amount(expense.getAmount())
                 .vat(expense.getVat())
                 .date(expense.getDate())
                 .reason(expense.getReason())

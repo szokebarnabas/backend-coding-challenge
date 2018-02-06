@@ -20,7 +20,7 @@ public class ExpenseAssemblerTest {
     public void shouldCreateDomainFromDto() {
         ExpenseDto dto = ExpenseDto.builder()
                 .id(34L)
-                .amount("334.532")
+                .amount(new BigDecimal("334.532"))
                 .vat(BigDecimal.TEN)
                 .reason("reason")
                 .date(DATE)
@@ -37,7 +37,7 @@ public class ExpenseAssemblerTest {
         ExpenseDto dto = ExpenseDto.builder()
                 .id(34L)
                 .vat(BigDecimal.TEN)
-                .amount("334.532")
+                .amount(new BigDecimal("334.532"))
                 .reason("reason")
                 .date(DATE)
                 .build();

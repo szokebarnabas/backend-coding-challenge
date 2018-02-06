@@ -29,7 +29,7 @@ public final class ExpenseDto {
     private Long id;
 
     @JsonProperty("amount")
-    private String amount;
+    private BigDecimal amount;
 
     @JsonProperty("vat")
     private BigDecimal vat;

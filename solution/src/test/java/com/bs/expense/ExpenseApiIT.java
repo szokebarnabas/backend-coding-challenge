@@ -77,7 +77,7 @@ public class ExpenseApiIT {
         final Integer id = getExpenseId(createdExpense);
         assertThat(id, notNullValue());
         final ResultActions foundExpense = fetch(id);
-        verifyExpense(foundExpense, "12/02/2018", "322.32", "monthly travel card", 64.46);
+        verifyExpense(foundExpense, "12/02/2018", 322.32, "monthly travel card", 64.46);
     }
 
     @Test
@@ -121,7 +121,7 @@ public class ExpenseApiIT {
     private ResultActions verifyExpenseJson(final String id, ResultActions response) throws Exception {
         return response.andExpect(jsonPath("$[" + id + "].id", notNullValue()))
                 .andExpect(jsonPath("$[0].date", is("12/02/2018")))
-                .andExpect(jsonPath("$[0].amount", is("322.32")))
+                .andExpect(jsonPath("$[0].amount", is(322.32)))
                 .andExpect(jsonPath("$[0].vat", is(64.46)))
                 .andExpect(jsonPath("$[0].reason", is("monthly travel card")));
     }
@@ -151,7 +151,7 @@ public class ExpenseApiIT {
     }
 
 
-    private void verifyExpense(final ResultActions action, String date, String value, String reason, Double vat) throws Exception {
+    private void verifyExpense(final ResultActions action, String date, Double value, String reason, Double vat) throws Exception {
         action
                 .andExpect(jsonPath("id", notNullValue()))
                 .andExpect(jsonPath("date", is(date)))
