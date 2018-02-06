@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
@@ -39,7 +38,7 @@ public class ExpenseServiceImplTest {
     @Captor
     private ArgumentCaptor<ExpenseEntity> argumentCaptor;
 
-    private static final Expense EXPENSE = new Expense(1L,BigDecimal.valueOf(10), BigDecimal.ONE, LocalDate.now(), "reason");
+    private static final Expense EXPENSE = new Expense(1L, BigDecimal.valueOf(10), BigDecimal.valueOf(0.1), LocalDate.now(), "reason");
     private ExpenseService expenseService;
 
     @Before
@@ -91,5 +90,17 @@ public class ExpenseServiceImplTest {
         List<Expense> result = expenseService.findAll();
 
         assertThat(result, Matchers.containsInAnyOrder(EXPENSE));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void saveShouldReturnExceptionWhenTheAmountIsZero() throws Exception {
+        Expense expense = new Expense(1L, BigDecimal.ONE, BigDecimal.valueOf(0), LocalDate.now(), "reason");
+        expenseService.save(expense);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void saveShouldReturnExceptionWhenTheAmountIsNegative() throws Exception {
+        Expense expense = new Expense(1L, BigDecimal.ONE, BigDecimal.valueOf(-1), LocalDate.now(), "reason");
+        expenseService.save(expense);
     }
 }

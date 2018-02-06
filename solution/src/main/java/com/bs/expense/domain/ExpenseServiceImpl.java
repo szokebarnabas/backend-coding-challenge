@@ -53,6 +53,9 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public Expense save(final Expense expense) {
         requireNonNull(expense, "The expense cannot be null.");
+        if (expense.getAmount().doubleValue() <= 0) {
+            throw new IllegalArgumentException("The amount has to be greater than 0");
+        }
         Expense amendedWithVat = calculateVat(expense);
         final ExpenseEntity entity = expenseRepository.save(assembler.toEntity(amendedWithVat));
         return assembler.toDomain(entity);
