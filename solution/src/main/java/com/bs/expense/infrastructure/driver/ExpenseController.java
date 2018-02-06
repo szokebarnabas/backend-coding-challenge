@@ -5,7 +5,6 @@ import com.bs.expense.application.dto.ExpenseDto;
 import com.bs.expense.domain.ExpenseService;
 import com.bs.expense.domain.model.Expense;
 import com.bs.expense.infrastructure.ExpenseAssembler;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,9 +35,9 @@ public class ExpenseController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Expense> persist(@RequestBody final ExpenseDto request) {
+    public ResponseEntity<ExpenseDto> persist(@RequestBody final ExpenseDto request) {
         final Expense domain = assembler.toDomain(request);
-        return ResponseEntity.ok(expenseService.save(domain));
+        return ResponseEntity.ok(assembler.toDto(expenseService.save(domain)));
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

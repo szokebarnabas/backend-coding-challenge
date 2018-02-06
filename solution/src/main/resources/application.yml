@@ -6,10 +6,9 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driverClassName: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://localhost/test
-    url: jdbc:postgresql://localhost/test
+    url: jdbc:postgresql://localhost/postgres
     username: postgres
-    password: root
+    password: password
     hikari:
       idle-timeout: 10000
   jpa:

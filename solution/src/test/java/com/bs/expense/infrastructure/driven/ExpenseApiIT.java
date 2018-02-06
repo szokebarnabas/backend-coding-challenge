@@ -29,12 +29,10 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 import static com.bs.expense.infrastructure.driven.TestHelper.readFromClassPath;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -79,7 +77,7 @@ public class ExpenseApiIT {
         final Integer id = getExpenseId(createdExpense);
         assertThat(id, notNullValue());
         final ResultActions foundExpense = fetch(id);
-        verifyExpense(foundExpense, "2018-02-12", "322.32", "monthly travel card");
+        verifyExpense(foundExpense, "12/02/2018", "322.32", "monthly travel card");
     }
 
     @Test
@@ -122,7 +120,7 @@ public class ExpenseApiIT {
 
     private ResultActions verifyExpenseJson(final String id, ResultActions response) throws Exception {
         return response.andExpect(jsonPath("$[" + id + "].id", notNullValue()))
-                .andExpect(jsonPath("$[0].date", is("2018-02-12")))
+                .andExpect(jsonPath("$[0].date", is("12/02/2018")))
                 .andExpect(jsonPath("$[0].amount", is("322.32")))
                 .andExpect(jsonPath("$[0].reason", is("monthly travel card")));
     }
