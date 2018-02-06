@@ -1,7 +1,38 @@
 README
 ====
-How to run the your solution...
 
-IMPORTANT
-====
-To avoid unconcious bias, we aim to have your submission reviewed anonymously by one of our engineering team. Please try and avoid adding personal details to this document such as your name, or using pronouns that might indicate your gender.
+Requirements: Docker, Node, Gulp
+
+Start backend:
+```
+./run_backend.sh
+```
+
+Start frontend:
+```
+npm install -g gulp && npm install && gulp
+```
+
+###Endpoints
+
+Save expense:
+```
+POST {host}:{port}/v1/expense
+
+{
+  "date": "29/02/2018",
+  "amount": "333.32",
+  "reason": "banana"
+}
+```
+
+
+Find expense by id:
+```
+GET {host}:{port}/v1/expense/{id}
+```
+
+Find all expenses:
+```
+GET {host}:{port}/v1/expense/
+```
