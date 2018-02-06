@@ -13,6 +13,7 @@ services:
   payments-api:
     image: bs/expense-api:1.0-SNAPSHOT
     ports:
-      - "8080:8080"
+      - "9000:9000"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://${HOST_IP}/postgres
+      - SERVER_PORT=9000

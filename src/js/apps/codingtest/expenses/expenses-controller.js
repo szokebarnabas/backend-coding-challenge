@@ -16,7 +16,7 @@ app.controller("ctrlExpenses", ["$rootScope", "$scope", "config", "restalchemy",
 	// Update the tab sections
 	$rootScope.selectTabSection("expenses", 0);
 
-	var restExpenses = $restalchemy.init({ root: $config.apiroot }).at("expenses");
+	var restExpenses = $restalchemy.init({ root: $config.apiroot }).at("v1/expense");
 
 	$scope.dateOptions = {
 		changeMonth: true,

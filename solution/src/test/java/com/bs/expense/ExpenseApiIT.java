@@ -1,4 +1,4 @@
-package com.bs.expense.infrastructure.driven;
+package com.bs.expense;
 
 import com.bs.expense.domain.ExpenseService;
 import com.bs.expense.infrastructure.ExpenseAssembler;
