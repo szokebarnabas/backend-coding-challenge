@@ -14,3 +14,6 @@ spring:
       idle-timeout: 10000
   jpa:
     generate-ddl: true
+
+expense-api:
+  vat-percent: 20

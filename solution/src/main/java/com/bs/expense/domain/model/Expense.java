@@ -1,16 +1,16 @@
 package com.bs.expense.domain.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-@Data
+@Value(staticConstructor = "of")
 @AllArgsConstructor
 public class Expense {
     private final Long id;
+    private final BigDecimal vat;
     private final BigDecimal amount;
     private final LocalDate date;
     private final String reason;

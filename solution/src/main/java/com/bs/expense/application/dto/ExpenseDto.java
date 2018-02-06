@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 @JsonPropertyOrder({
         "id",
         "amount",
+        "vat",
         "date",
         "reason"
 })
@@ -25,12 +27,18 @@ public final class ExpenseDto {
 
     @JsonProperty("id")
     private Long id;
+
     @JsonProperty("amount")
     private String amount;
+
+    @JsonProperty("vat")
+    private BigDecimal vat;
+
     @JsonProperty("date")
     @JsonFormat(pattern = "dd/MM/yyyy")
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
+
     @JsonProperty("reason")
     private String reason;
 }

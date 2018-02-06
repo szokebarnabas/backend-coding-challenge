@@ -30,6 +30,9 @@ public class ExpenseEntity {
     @Column(nullable = false, name = "amount")
     private BigDecimal amount;
 
+    @Column(nullable = false, name = "vat")
+    private BigDecimal vat;
+
     @Column(nullable = false, name = "date")
     private LocalDate date;
 

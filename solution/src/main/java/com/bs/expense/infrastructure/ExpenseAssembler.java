@@ -16,6 +16,7 @@ public class ExpenseAssembler {
         requireNonNull(request, "The dto cannot be null.");
         return new Expense(
                 request.getId(),
+                request.getVat(),
                 new BigDecimal(request.getAmount()),
                 request.getDate(),
                 request.getReason()
@@ -26,6 +27,7 @@ public class ExpenseAssembler {
         requireNonNull(expense, "The expense cannot be null.");
         return ExpenseDto.builder()
                 .amount(expense.getAmount().toString())
+                .vat(expense.getVat())
                 .date(expense.getDate())
                 .reason(expense.getReason())
                 .id(expense.getId())
@@ -36,6 +38,7 @@ public class ExpenseAssembler {
         requireNonNull(expense, "The expense cannot be null.");
         return ExpenseEntity.builder()
                 .amount(expense.getAmount())
+                .vat(expense.getVat())
                 .date(expense.getDate())
                 .reason(expense.getReason())
                 .id(expense.getId())
@@ -46,6 +49,7 @@ public class ExpenseAssembler {
         requireNonNull(entity, "The entity cannot be null.");
         return new Expense(
                 entity.getId(),
+                entity.getVat(),
                 entity.getAmount(),
                 entity.getDate(),
                 entity.getReason()

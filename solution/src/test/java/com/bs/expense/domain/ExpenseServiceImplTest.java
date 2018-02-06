@@ -6,6 +6,7 @@ import com.bs.expense.infrastructure.driven.ExpenseEntity;
 import com.bs.expense.infrastructure.driven.ExpenseRepository;
 import org.assertj.core.util.Lists;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,26 +36,29 @@ public class ExpenseServiceImplTest {
     @Mock
     private ExpenseAssembler assembler;
 
-    @InjectMocks
-    private ExpenseServiceImpl expenseService;
-
     @Captor
     private ArgumentCaptor<ExpenseEntity> argumentCaptor;
 
+    private static final Expense EXPENSE = new Expense(1L,BigDecimal.valueOf(10), BigDecimal.ONE, LocalDate.now(), "reason");
+    private ExpenseService expenseService;
+
+    @Before
+    public void setUp() throws Exception {
+        expenseService = new ExpenseServiceImpl(expenseRepository, assembler, BigDecimal.valueOf(20));
+    }
+
     @Test
     public void shouldSaveAnExpense() throws Exception {
-        Expense expense = new Expense(1L, BigDecimal.ONE, LocalDate.now(), "reason");
         ExpenseEntity entity = mock(ExpenseEntity.class);
-        Expense expected = mock(Expense.class);
-        when(assembler.toEntity(expense)).thenReturn(entity);
-        when(assembler.toDomain(entity)).thenReturn(expected);
-        when(expenseRepository.save(entity)).thenReturn(entity);
+        when(assembler.toEntity(any(Expense.class))).thenReturn(entity);
+        when(assembler.toDomain(entity)).thenReturn(EXPENSE);
+        when(expenseRepository.save(org.mockito.Matchers.any(ExpenseEntity.class))).thenReturn(entity);
 
-        Expense result = expenseService.save(expense);
+        Expense result = expenseService.save(EXPENSE);
 
         verify(expenseRepository).save(argumentCaptor.capture());
         assertThat(argumentCaptor.getValue(), is(entity));
-        assertThat(result, Matchers.equalTo(expected));
+        assertThat(result, Matchers.equalTo(EXPENSE));
     }
 
     @Test(expected = Exception.class)
@@ -64,13 +69,12 @@ public class ExpenseServiceImplTest {
     @Test
     public void shouldFindExpenseById() throws Exception {
         ExpenseEntity entity = mock(ExpenseEntity.class);
-        Expense expected = mock(Expense.class);
         when(expenseRepository.findOne(1L)).thenReturn(entity);
-        when(assembler.toDomain(entity)).thenReturn(expected);
+        when(assembler.toDomain(entity)).thenReturn(EXPENSE);
 
         Optional<Expense> result = expenseService.findById(1L);
 
-        assertThat(result, Matchers.equalTo(Optional.of(expected)));
+        assertThat(result, Matchers.equalTo(Optional.of(EXPENSE)));
     }
 
     @Test(expected = Exception.class)
@@ -81,12 +85,11 @@ public class ExpenseServiceImplTest {
     @Test
     public void shouldReturnAllOfTheExpenses() throws Exception {
         ExpenseEntity entity = mock(ExpenseEntity.class);
-        Expense expense = mock(Expense.class);
         when(expenseRepository.findAll()).thenReturn(Lists.newArrayList(entity));
-        when(assembler.toDomain(entity)).thenReturn(expense);
+        when(assembler.toDomain(entity)).thenReturn(EXPENSE);
 
         List<Expense> result = expenseService.findAll();
 
-        assertThat(result, Matchers.containsInAnyOrder(expense));
+        assertThat(result, Matchers.containsInAnyOrder(EXPENSE));
     }
 }
